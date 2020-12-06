@@ -17,6 +17,7 @@ model = MainModel(config, midas_pretrained_path, yolo_pretrained_path)
 
 input_path = 'input/'
 output_path = 'output/'
+classes_path = 'YOLOv3/classes'
 img_names = glob.glob(os.path.join(input_path, "*"))
 num_images = len(img_names)
 os.makedirs(output_path, exist_ok=True)
@@ -47,8 +48,8 @@ for i in range(3):
                                 config["yolo"]["classes"], (config["img_w"], config["img_h"])))
 
 # prepare images path
-images_name = os.listdir('/content/YOLOv3_PyTorch/test/images/')
-images_path = [os.path.join('/content/YOLOv3_PyTorch/test/images/', name) for name in images_name]
+images_name = os.listdir(input_path)
+images_path = [os.path.join(input_path, name) for name in images_name]
 if len(images_path) == 0:
     raise Exception("no image found in {}".format(config["images_path"]))
 
@@ -116,7 +117,7 @@ for step in range(0, len(images_path), batch_size):
     
 
     # write result images. Draw bounding boxes and labels of detections
-    classes = open('classes', "r").read().split("\n")[:-1]
+    classes = open(classes_path, "r").read().split("\n")[:-1]
     if not os.path.isdir("./output/"):
         os.makedirs("./output/")
     for idx, detections in enumerate(batch_detections):

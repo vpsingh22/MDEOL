@@ -3,7 +3,7 @@ import torch.nn as nn
 from collections import OrderedDict
 
 from MiDaS.midas.midas_net import MidasNet
-from YOLOv3.net.yolo_layers import YOLOLayers
+from YOLOv3.nets.yolo_layers import YOLOLayers
 
 class MainModel(nn.Module):
 

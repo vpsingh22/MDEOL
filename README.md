@@ -10,6 +10,11 @@ The aim to the project is to create a network that can perform 3 tasks simultane
 
 ![input image](./images/input_image.jpg) ![bbox image](./images/yolo_image.jpg) ![depth image](./images/depth_image.png) ![planercnn image](./images/planercnn.png) 
 
+## Dataset
+
+
+
+
 ## Approach
 
 The very first approach to solve the problem is to use 3 models. 
@@ -31,7 +36,7 @@ For depth estimation the MiDaS network can be used as it because MiDaS is alread
 
 #### MiDaS Training 
 To make the entire network trainable MiDaS need to trainable too. 
-Loss function tested on Midas were <b>SSIM Loss<b> and <b>MSE Loss<b>.
+Loss function tested on Midas were <b>SSIM Loss</b> and <b>MSE Loss</b>.
 The SSIM loss fuction performed very good with MiDaS.
 
 #### Yolo Training

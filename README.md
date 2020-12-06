@@ -10,10 +10,38 @@ The aim to the project is to create a network that can perform 3 tasks simultane
 
 ![input image](./images/input_image.jpg) ![bbox image](./images/yolo_image.jpg) ![depth image](./images/depth_image.png) ![planercnn image](./images/planercnn.png) 
 
+
 ## Dataset
 
+Dataset Link : https://drive.google.com/drive/folders/1W8J2TDzvfRWhJXgJQVh77E1i2o_4Ie9e?usp=sharing
+
+## Directory Structure:
 
 
+```bash
+Construction PPE Kit
+    ├── Annotated Images
+    |   ├── images
+    |   |   ├── image_0001.jpg
+    |   |   ├── image_0002.jpg
+    |   |   ├── ...
+    |   |   ├── image_3521.jpg
+    |   ├── labels
+    |   |   ├── image_0001.txt
+    |   |   ├── image_0002.txt
+    |   |   ├── ...
+    |   |   ├── image_3521.txt
+    ├── Depth Images using MiDaS
+    |   ├── image_0001.png
+    |   ├── image_0002.png
+    |   ├── ...
+    |   └── image_3521.png
+    |── Planer images using PlanerCNN
+        ├── image_0001.png
+        ├── image_0002.png
+        ├── ...
+        └── image_3521.png    
+```
 
 ## Approach
 

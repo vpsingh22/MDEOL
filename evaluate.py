@@ -10,18 +10,6 @@ from MiDaS.midas.transforms import Resize, NormalizeImage, PrepareForNet
 from config import config
 from mainmodel import MainModel
 
-
-midas_pretrained_path = 'model-f6b98070.pt'
-yolo_pretrained_path = 'yolo_saved_model.pth'
-model = MainModel(config, midas_pretrained_path, yolo_pretrained_path)
-
-input_path = 'input/'
-output_path = 'output/'
-classes_path = 'YOLOv3/classes'
-img_names = glob.glob(os.path.join(input_path, "*"))
-num_images = len(img_names)
-os.makedirs(output_path, exist_ok=True)
-
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
@@ -31,6 +19,23 @@ import numpy as np
 
 from YOLOv3.nets.yolo_loss import YOLOLoss
 from YOLOv3.common.utils import non_max_suppression, bbox_iou
+import logging
+import random
+
+midas_pretrained_path = 'model-f6b98070.pt'
+yolo_pretrained_path = 'yolo_saved_model.pth'
+
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+model = MainModel(config, midas_pretrained_path, yolo_pretrained_path).to(device)
+
+input_path = 'input/'
+output_path = 'output/'
+classes_path = 'YOLOv3/classes'
+img_names = glob.glob(os.path.join(input_path, "*"))
+num_images = len(img_names)
+os.makedirs(output_path, exist_ok=True)
+
+
 
 cmap = plt.get_cmap('tab20b')
 colors = [cmap(i) for i in np.linspace(0, 1, 5)]
@@ -40,8 +45,8 @@ optimize = True
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 
-import logging
-import random
+
+model.eval()
 yolo_losses = []
 for i in range(3):
     yolo_losses.append(YOLOLoss(config["yolo"]["anchors"][i],
@@ -80,6 +85,7 @@ for step in range(0, len(images_path), batch_size):
     images = np.asarray(images)
     images = torch.from_numpy(images).to(device)
     # inference
+    
     with torch.no_grad():
         # print(images.shape)
         outputs, prediction = model.forward(images[0].unsqueeze(0))
